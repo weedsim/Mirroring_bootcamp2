@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "ethereumjs-tx": "^2.1.2",
+    "ethereumjs-util": "^7.1.5",
+    "rlp": "^3.0.0",
+    "web3": "^1.8.2"
+  }
+}
