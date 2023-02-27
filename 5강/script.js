@@ -83,7 +83,10 @@ function retrieve() {
   storageContract.methods
     .retrieve()
     .call({ from: senderAddress })
-    .then(console.log)
+    .then((result) => {
+      console.log(result);
+      document.getElementById("storedData").innerHTML = result;
+    })
     .catch((err) => console.log(err));
 }
 
