@@ -3,12 +3,39 @@ var web3;
 /**
  * 실습 환경에 맞는 값 할당
  */
-const SEPOLIA_URL = ""; // infura의 나의 프로젝트에서 sepolia 주소 따옴
-const CA = ""; // Contract Address => remix에서 내가 deploy한 contract의 주소
-const STORAGE_ABI = []; // ABI는 etherScan에서 CA로 검색으로 나온 Contract ABI => remix에서 아님
+const SEPOLIA_URL = "https://sepolia.infura.io/v3/"; // infura의 나의 프로젝트에서 sepolia 주소 따옴
+const CA = "0x8d2bAEC63383dF6c4c5521B4Bf401a622AeC6694"; // Contract Address => remix에서 내가 deploy한 contract의 주소
+const STORAGE_ABI = [
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "num",
+        "type": "uint256"
+      }
+    ],
+    "name": "store",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "retrieve",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "number",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]; // ABI는 etherScan에서 CA로 검색으로 나온 Contract ABI => remix에서 아님
 
 const privateKey =
-  "";
+  "2e534e34d9a4ea11fc35573efbbc334014ac3c2566ea2be412f746202aa27413";
 var sender;
 var senderAddress;
 var storageContract;
@@ -56,7 +83,8 @@ function retrieve() {
   storageContract.methods
     .retrieve()
     .call({ from: senderAddress })
-    .then(console.log);
+    .then(console.log)
+    .catch((err) => console.log(err));
 }
 
 /**
@@ -71,6 +99,9 @@ function store() {
       gas: web3.utils.toHex(30000000),
     })
     .then((result) => {
+      console.log(web3.utils.toHex(document.getElementById("newValue").value));
+      console.log(typeof(web3.utils.toHex(document.getElementById("newValue").value)));
+      console.log(result);
         document.getElementById("txHash").innerHTML = result.transactionHash;
     });
         
